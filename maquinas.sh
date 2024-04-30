@@ -1,4 +1,4 @@
-#!/bin/bash
+ #!/bin/bash
 
 cowthink -f tux "Puedes visitar mi blog en https://404azz.github.io"
 
@@ -12,6 +12,8 @@ echo "Seleccione la plataforma: "
 echo "1. HTB"
 echo "2. Docker"
 echo "3. Vulnyx"
+echo "4. Vulnhub"
+echo "5. Otra"
 
 read -p "Ingrese el número correspondiente a la plataforma: " opcion
 
@@ -25,26 +27,38 @@ case $opcion in
     3)
         plataforma="Vulnyx"
         ;;
+    4)
+        plataforma="Vulhub"
+        ;;
+    5)
+        echo "Ingrese el nombre de la plataforma:"
+        read plataforma
+        ;;
     *)
-        echo "Opción no válida. Saliendo del script."
-        exit 1
+        echo "Opción no válida..."
         ;;
 esac
 
-if [ -d "$HOME/Documentos" ]; then
+echo "Seleccione la carpeta para guardar el archivo:"
+echo "1. Documentos"
+echo "2. Otra carpeta"
+
+read -p "Ingrese el número correspondiente a la carpeta: " carpeta_opcion
+
+if [ "$carpeta_opcion" == "1" ]; then
     base_dir="$HOME/Documentos"
-elif [ -d "$HOME/Documents" ]; then
-    base_dir="$HOME/Documents"
+elif [ "$carpeta_opcion" == "2" ]; then
+    echo "Ingrese la ruta completa de la carpeta:"
+    read base_dir
 else
-    echo "No se encontró la carpeta /Documentos o /Documents. Saliendo del script."
-    exit 1
+    echo "Opción no válida..."
 fi
 
 ubicacion="$base_dir/$plataforma/$maquina"
 
 if [ ! -d "$ubicacion" ]; then
     mkdir -p "$ubicacion"
-    echo "Se ha creado la carpeta para la maquina $maquina en $ubicacion."
+    echo "Se ha creado la carpeta para la máquina $maquina en $ubicacion."
 fi
 
 if [ -e "$archivo" ]; then
@@ -53,3 +67,7 @@ if [ -e "$archivo" ]; then
 else
     echo "El archivo $archivo no existe."
 fi
+
+
+
+
