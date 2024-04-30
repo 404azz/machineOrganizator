@@ -31,7 +31,14 @@ case $opcion in
         ;;
 esac
 
-base_dir="~/Documentos"
+if [ -d "$HOME/Documentos" ]; then
+    base_dir="$HOME/Documentos"
+elif [ -d "$HOME/Documents" ]; then
+    base_dir="$HOME/Documents"
+else
+    echo "No se encontró la carpeta /Documentos o /Documents. Saliendo del script."
+    exit 1
+fi
 
 ubicacion="$base_dir/$plataforma/$maquina"
 
